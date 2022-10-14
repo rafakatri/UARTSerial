@@ -1,0 +1,24 @@
+void sleep(unsigned long n) {
+  byte tick = 0;
+  for (unsigned long i = 0; i < n; i++) {
+    tick++;
+  }
+}
+
+int pin = 5;
+byte resp = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pin, INPUT);
+}
+
+void loop() {
+  if (!digitalRead(pin)) {
+    sleep(3280);
+    for (int i = 7; i <= 0; i--) {
+      bitWrite(resp, i, digitalRead(pin));
+      sleep(2187);
+    }
+  }
+}

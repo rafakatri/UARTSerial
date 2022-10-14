@@ -15,8 +15,13 @@ void setup() {
   Serial.begin(9600);
   pinMode(pin, OUTPUT);
   digitalWrite(pin, HIGH);
+  sleep(2187*1000);
+  digitalWrite(pin, LOW);
+  sleep(2187);
   for (int i=0;i<=7;i++){
-      Serial.println(bitRead(letra,i));
+      //Serial.println(bitRead(letra,i));
+      digitalWrite(pin,bitRead(letra,i));
+      sleep(2187);
   }
 
 }
