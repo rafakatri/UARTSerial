@@ -14,11 +14,12 @@ void setup() {
 }
 
 void loop() {
-  if (!digitalRead(pin)) {
-    sleep(3280);
-    for (int i = 7; i <= 0; i--) {
+  if (digitalRead(pin) == LOW) {
+    sleep(3281);
+    for (int i = 0; i <= 7; i++) {
       bitWrite(resp, i, digitalRead(pin));
-      sleep(2187);
+      sleep(2188);
     }
+    Serial.println(resp);
   }
 }
