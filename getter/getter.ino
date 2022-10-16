@@ -7,6 +7,8 @@ void sleep(unsigned long n) {
 
 int pin = 5;
 byte resp = 0;
+bool parity;
+int count = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -16,10 +18,28 @@ void setup() {
 void loop() {
   if (digitalRead(pin) == LOW) {
     sleep(3281);
+
     for (int i = 0; i <= 7; i++) {
       bitWrite(resp, i, digitalRead(pin));
       sleep(2188);
     }
-    Serial.println(resp);
+
+    parity = digitalRead(pin);
+    sleep(2188);
+
+    for(int i = 0; i < 8; i++){
+      if (bitRead(resp, i) == 1) {
+        count++;
+      }
+    }
+
+    if (count % 2 == 0 && parity == 1) {
+      Serial.println(resp);
+    } else if (count % 2 != 0 && parity == 0) {
+      Serial.println(resp);
+    } else {
+      Serial.println("Erro");
+    }
+    
   }
 }
