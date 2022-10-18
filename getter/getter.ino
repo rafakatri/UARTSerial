@@ -1,11 +1,12 @@
+byte tick = 0;
+int deltat = 1094;
 void sleep(unsigned long n) {
-  byte tick = 0;
   for (unsigned long i = 0; i < n; i++) {
     tick++;
   }
 }
 
-int pin = 5;
+int pin = 4;
 byte resp = 0;
 
 void setup() {
@@ -15,11 +16,13 @@ void setup() {
 
 void loop() {
   if (digitalRead(pin) == LOW) {
-    sleep(3281);
-    for (int i = 0; i <= 7; i++) {
-      bitWrite(resp, i, digitalRead(pin));
-      sleep(2188);
+    sleep(deltat * 1.5);
+    for (int i = 0; i <=7; i++) {
+      resp = resp | (digitalRead(pin) << i);
+      //Serial.println(digitalRead(pin)<<i)
+      sleep(deltat);
     }
+    
     Serial.println(resp);
   }
 }
